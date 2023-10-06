@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform gameTransform;
     [SerializeField] private Transform piecePrefab;
 
+    private List<Transform> pieces;
+
     private int emptyLocation;
     private int sizeGame;
 
@@ -19,6 +21,9 @@ public class GameManager : MonoBehaviour
             for (int col = 0; col< sizeGame; col++) 
             {
                 Transform piece = Instantiate(piecePrefab, gameTransform);
+                
+                pieces.Add(piece); 
+
                 piece.localPosition = new Vector3(-1 + (2 * width * col) + width, +1 - (2 * width * row) - width, 0);
                 piece.localScale = ((2 * width) - Gap) * Vector3.one;
                 piece.name = $"{(row * sizeGame) + col}";
@@ -45,6 +50,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pieces = new List<Transform>();
         sizeGame = 10;
         CreateGamePieces(0.01f);
     }
