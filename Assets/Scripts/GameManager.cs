@@ -51,13 +51,45 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         pieces = new List<Transform>();
-        sizeGame = 10;
+        sizeGame = 4;
         CreateGamePieces(0.01f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetMouseButtonDown(0)) 
+        {
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToViewportPoint(Input.mousePosition),Vector2.zero);
+
+            if(hit)
+            {
+                for(int i = 0; i < pieces.Count; i++) 
+                {
+                    if (pieces[i] == hit.transform)
+                    {
+                        if (SwapIsValid(i, -sizeGame, sizeGame)) { break; }
+                        if (SwapIsValid(i, +sizeGame, sizeGame)) { break; }
+                        if (SwapIsValid(i, -1, 0)) { break; }
+                        if (SwapIsValid(i, +1, sizeGame - 1)) { break; }
+                    }
+                }
+            }
+        }
+    }
+
+    private bool SwapIsValid(int i, int offset, int checkCollum)
+    {
+        if(((i % sizeGame) != checkCollum) && ((i + offset) == emptyLocation))
+        {
+            (pieces[i], pieces[i + offset]) = (pieces[i + offset], pieces[i]);
+
+            (pieces[i].localPosition, pieces[i + offset].localPosition) = (pieces[i + offset].localPosition, pieces[i].localPosition);
+
+            emptyLocation = i;
+
+            return true;
+        }
+        return false;
     }
 }
