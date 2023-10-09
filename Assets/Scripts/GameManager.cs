@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     private int emptyLocation;
     private int sizeGame;
 
+    private bool isShuffling = false;
+
     private void CreateGamePieces(float Gap)
     {
         float width = 1 / (float)sizeGame;
@@ -58,6 +60,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!isShuffling && CheckingGameComlition())
+        {
+            isShuffling = true;
+            StartCorountine(WaitForShuffle(0.5f));
+        }
         if(Input.GetMouseButtonDown(0)) 
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToViewportPoint(Input.mousePosition),Vector2.zero);
@@ -91,5 +98,17 @@ public class GameManager : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private bool CheckingGameComlition()
+    {
+        for (int i = 0; i < pieces.Count; i++ )
+        {
+            if (pieces[i].name != $"{i}")
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }
