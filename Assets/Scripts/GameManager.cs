@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
         if(!isShuffling && CheckingGameComlition())
         {
             isShuffling = true;
-            StartCorountine(WaitForShuffle(0.5f));
+            //StartCorountine(WaitForShuffle(0.5f));
         }
         if(Input.GetMouseButtonDown(0)) 
         {
@@ -100,6 +100,7 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    // Only after move piece of picture call this method
     private bool CheckingGameComlition()
     {
         for (int i = 0; i < pieces.Count; i++ )
@@ -110,5 +111,17 @@ public class GameManager : MonoBehaviour
             }
         }
         return true;
+    }
+
+    private IEnumerator WaitForShuffle(float waitingTime)
+    {
+        yield return new WaitForSeconds(waitingTime);
+        Shuffle();
+        isShuffling = false;
+    }
+    //TODO: Do some Shuffling with cards do not use BRUTAL!
+    private void Shuffle()
+    {
+
     }
 }
