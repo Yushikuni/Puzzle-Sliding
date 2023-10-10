@@ -14,7 +14,30 @@ public class GameManager : MonoBehaviour
     private int sizeGame;
 
     private bool isShuffling = false;
+    /*
+     For more pictures:
+    Hello, is it possible to make a tutorial where you do this with 3 or more pictures? Like after a picture is solved, the level is completed, and a new picture puzzle comes in
 
+
+
+Odpovìdìt
+
+
+Firnox
+·
+
+2 odpovìdi
+@FirnoxGames
+@FirnoxGames
+pøed 6 mìsíci
+Hey, the part of the code where the image is assigned to the piece is the mr.sharedMaterial = newMat line. So to do this what you could do to do this is change the definition of this into a list: [SerializeField] private List<Material> newMat; And assign several materials with your different images on and assign them in the inspector. Then in the WaitShuffle method after waiting but before the shuffle choose a random image (or the next one) and assign it to each of the pieces:
+foreach (Transform piece in pieces):
+  MeshRenderer mr = piece.GetComponent<MeshRenderer>();
+  mr.sharedMaterial = newMat[index_of_the_material_you_have_chosen];
+}
+
+
+     */
     private void CreateGamePieces(float Gap)
     {
         float width = 1 / (float)sizeGame;
@@ -153,52 +176,5 @@ public class GameManager : MonoBehaviour
                 count++;
             }
         }
-        /*for(int i=0; i < shuffleCount; ++i) 
-        {           
-            int randomPieceIndex = Random.Range(0, pieces.Count);     
-            
-            if (CanMovePiece(pieces[randomPieceIndex], out emptyLocationLocal))
-            {
-                int emptyRow = emptyLocationLocal / sizeGame;
-                int emptyCol = emptyLocationLocal % sizeGame;
-
-                int pieceRow = randomPieceIndex / sizeGame;
-                int pieceCol = randomPieceIndex % sizeGame;
-
-                // Zkontrolujeme, zda je vybraný kus sousedem prázdného místa
-                if (Mathf.Abs(pieceRow - emptyRow) + Mathf.Abs(pieceCol - emptyCol) == 1)
-                {
-                    SwapIsValid(randomPieceIndex, 0, emptyLocationLocal);
-                }
-            }
-
-        }*/
     }
-
-    /*private bool CanMovePiece(Transform piece, out int emptyLocation)
-    {
-        emptyLocation = -1;
-        int pieceIndex = pieces.IndexOf(piece);
-        if (pieceIndex == -1)
-        {
-            // Pokud komponenta kusu není v seznamu, považujeme ji za neplatnou
-            return false;
-        }
-
-        int emptyRow = emptyLocation / sizeGame;
-        int emptyCol = emptyLocation % sizeGame;
-
-        int pieceRow = pieceIndex / sizeGame;
-        int pieceCol = pieceIndex % sizeGame;
-
-        // Zkontrolujeme, zda je kus sousedem prázdného místa
-        if (Mathf.Abs(pieceRow - emptyRow) + Mathf.Abs(pieceCol - emptyCol) == 1)
-        {
-            // Nastavíme prázdnou lokaci na index kusu
-            emptyLocation = pieceIndex;
-            return true;
-        }
-
-        return false;
-    }*/
 }
