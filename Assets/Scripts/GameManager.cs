@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     private List<Transform> pieces;
 
-    private int emptyLocation;
+    private int emptyLocationLocal;
     private int sizeGame;
 
     private bool isShuffling = false;
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
                 piece.name = $"{(row * sizeGame) + col}";
                 if((row == sizeGame - 1) && (col == sizeGame - 1))
                 {
-                    emptyLocation = (sizeGame * sizeGame) - 1;
+                    emptyLocationLocal = (sizeGame * sizeGame) - 1;
                     piece.gameObject.SetActive(false); 
                 }
                 else
@@ -87,13 +87,13 @@ public class GameManager : MonoBehaviour
 
     private bool SwapIsValid(int i, int offset, int checkCollum)
     {
-        if(((i % sizeGame) != checkCollum) && ((i + offset) == emptyLocation))
+        if(((i % sizeGame) != checkCollum) && ((i + offset) == emptyLocationLocal))
         {
             (pieces[i], pieces[i + offset]) = (pieces[i + offset], pieces[i]);
 
             (pieces[i].localPosition, pieces[i + offset].localPosition) = (pieces[i + offset].localPosition, pieces[i].localPosition);
 
-            emptyLocation = i;
+            emptyLocationLocal = i;
 
             return true;
         }
@@ -122,6 +122,53 @@ public class GameManager : MonoBehaviour
     //TODO: Do some Shuffling with cards do not use BRUTAL!
     private void Shuffle()
     {
+        int shuffleCount = 100;
 
+        for(int i=0; i < shuffleCount; ++i) 
+        {
+            int randomPieceIndex = Random.Range(0, pieces.Count);
+
+            if (CanMovePiece(pieces[randomPieceIndex], out emptyLocationLocal))
+            {
+                int emptyRow = emptyLocationLocal / sizeGame;
+                int emptyCol = emptyLocationLocal % sizeGame;
+
+                int pieceRow = randomPieceIndex / sizeGame;
+                int pieceCol = randomPieceIndex % sizeGame;
+
+                // Zkontrolujeme, zda je vybraný kus sousedem prázdného místa
+                if (Mathf.Abs(pieceRow - emptyRow) + Mathf.Abs(pieceCol - emptyCol) == 1)
+                {
+                    SwapIsValid(randomPieceIndex, 0, emptyLocationLocal);
+                }
+            }
+        }
+    }
+
+    private bool CanMovePiece(Transform piece, out int emptyLocation)
+    {
+        emptyLocation = -1;
+        int pieceIndex = pieces.IndexOf(piece);
+        if (pieceIndex == -1)
+        {
+            // Pokud komponenta kusu není v seznamu, považujeme ji za neplatnou
+            return false;
+        }
+
+        int emptyRow = emptyLocation / sizeGame;
+        int emptyCol = emptyLocation % sizeGame;
+
+        int pieceRow = pieceIndex / sizeGame;
+        int pieceCol = pieceIndex % sizeGame;
+
+        // Zkontrolujeme, zda je kus sousedem prázdného místa
+        if (Mathf.Abs(pieceRow - emptyRow) + Mathf.Abs(pieceCol - emptyCol) == 1)
+        {
+            // Nastavíme prázdnou lokaci na index kusu
+            emptyLocation = pieceIndex;
+            return true;
+        }
+
+        return false;
     }
 }
