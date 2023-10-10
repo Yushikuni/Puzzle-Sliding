@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 
     private List<Transform> pieces;
 
-    private int emptyLocationLocal;
+    private int emptyLocationLocal = -1;
     private int sizeGame;
 
     private bool isShuffling = false;
@@ -53,8 +53,9 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         pieces = new List<Transform>();
+        emptyLocationLocal = (sizeGame * sizeGame) - 1;
         sizeGame = 4;
-        CreateGamePieces(0.01f);
+        CreateGamePieces(0.5f);
     }
 
     // Update is called once per frame
@@ -63,7 +64,7 @@ public class GameManager : MonoBehaviour
         if(!isShuffling && CheckingGameComlition())
         {
             isShuffling = true;
-            //StartCorountine(WaitForShuffle(0.5f));
+            //StartCoroutine(WaitForShuffle(0.5f));
         }
         if(Input.GetMouseButtonDown(0)) 
         {
@@ -122,12 +123,40 @@ public class GameManager : MonoBehaviour
     //TODO: Do some Shuffling with cards do not use BRUTAL!
     private void Shuffle()
     {
-        int shuffleCount = 100;
+        //int shuffleCount = 100;
+        int last = 0;
+        int count = 0;
+        int rnd = Random.Range(0, sizeGame * sizeGame);
+        while (count < (sizeGame * sizeGame * sizeGame)) 
+        { 
+            if (rnd == last) 
+            { 
+                continue; 
+            }
 
-        for(int i=0; i < shuffleCount; ++i) 
-        {
-            int randomPieceIndex = Random.Range(0, pieces.Count);
+            last = emptyLocationLocal;
 
+            if(SwapIsValid(rnd, -sizeGame, sizeGame))
+            { 
+                count++; 
+            }
+            else if (SwapIsValid(rnd, +sizeGame, sizeGame))
+            { 
+                count++; 
+            }
+            else if((SwapIsValid(rnd, -1, 0)))
+            { 
+                count++;
+            }
+            else if ((SwapIsValid(rnd, +1, sizeGame - 1)))
+            {
+                count++;
+            }
+        }
+        /*for(int i=0; i < shuffleCount; ++i) 
+        {           
+            int randomPieceIndex = Random.Range(0, pieces.Count);     
+            
             if (CanMovePiece(pieces[randomPieceIndex], out emptyLocationLocal))
             {
                 int emptyRow = emptyLocationLocal / sizeGame;
@@ -142,10 +171,11 @@ public class GameManager : MonoBehaviour
                     SwapIsValid(randomPieceIndex, 0, emptyLocationLocal);
                 }
             }
-        }
+
+        }*/
     }
 
-    private bool CanMovePiece(Transform piece, out int emptyLocation)
+    /*private bool CanMovePiece(Transform piece, out int emptyLocation)
     {
         emptyLocation = -1;
         int pieceIndex = pieces.IndexOf(piece);
@@ -170,5 +200,5 @@ public class GameManager : MonoBehaviour
         }
 
         return false;
-    }
+    }*/
 }
