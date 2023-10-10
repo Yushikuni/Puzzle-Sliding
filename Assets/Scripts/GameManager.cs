@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
         pieces = new List<Transform>();
         emptyLocationLocal = (sizeGame * sizeGame) - 1;
         sizeGame = 4;
-        CreateGamePieces(0.5f);
+        CreateGamePieces(0.01f);
     }
 
     // Update is called once per frame
@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         if(!isShuffling && CheckingGameComlition())
         {
             isShuffling = true;
-            //StartCoroutine(WaitForShuffle(0.5f));
+            StartCoroutine(WaitForShuffle(0.5f));
         }
         if(Input.GetMouseButtonDown(0)) 
         {
