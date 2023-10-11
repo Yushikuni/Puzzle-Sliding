@@ -17,26 +17,22 @@ public class GameManager : MonoBehaviour
     /*
      For more pictures:
     Hello, is it possible to make a tutorial where you do this with 3 or more pictures? Like after a picture is solved, the level is completed, and a new picture puzzle comes in
-
-
-
-Odpovìdìt
-
-
-Firnox
-·
-
-2 odpovìdi
-@FirnoxGames
-@FirnoxGames
-pøed 6 mìsíci
-Hey, the part of the code where the image is assigned to the piece is the mr.sharedMaterial = newMat line. So to do this what you could do to do this is change the definition of this into a list: [SerializeField] private List<Material> newMat; And assign several materials with your different images on and assign them in the inspector. Then in the WaitShuffle method after waiting but before the shuffle choose a random image (or the next one) and assign it to each of the pieces:
-foreach (Transform piece in pieces):
-  MeshRenderer mr = piece.GetComponent<MeshRenderer>();
-  mr.sharedMaterial = newMat[index_of_the_material_you_have_chosen];
-}
-
-
+    Odpovìdìt
+    Firnox
+·2 odpovìdi
+        @FirnoxGames
+        @FirnoxGames
+        pøed 6 mìsíci
+        Hey, the part of the code where the image is assigned to the piece is the mr.sharedMaterial = newMat line. So to do this what you could do to do this is change the definition of this into a list: [SerializeField] private List<Material> newMat; And assign several materials with your different images on and assign them in the inspector. Then in the WaitShuffle method after waiting but before the shuffle choose a random image (or the next one) and assign it to each of the pieces:
+        foreach (Transform piece in pieces):
+          MeshRenderer mr = piece.GetComponent<MeshRenderer>();
+          mr.sharedMaterial = newMat[index_of_the_material_you_have_chosen];
+     */
+    /*
+     TODO:
+    1. Fix mouse button
+    2. fixing freezing of unity 3d in some methods
+    3. Add more pictures!
      */
     private void CreateGamePieces(float Gap)
     {
@@ -84,12 +80,12 @@ foreach (Transform piece in pieces):
     // Update is called once per frame
     void Update()
     {
-        if(!isShuffling && CheckingGameComlition())
+        /*if(!isShuffling && CheckingGameComlition())
         {
             isShuffling = true;
             StartCoroutine(WaitForShuffle(0.5f));
-        }
-        if(Input.GetMouseButtonDown(0)) 
+        }*/
+        if(Input.GetKey(KeyCode.Space)) 
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToViewportPoint(Input.mousePosition),Vector2.zero);
 
