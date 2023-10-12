@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     1. Fix mouse button
     2. fixing freezing of unity 3d in some methods
     3. Add more pictures!
+    4. Fix visiblity of chunks
      */
     private void CreateGamePieces(float Gap)
     {
@@ -80,11 +81,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if(!isShuffling && CheckingGameComlition())
+        if(!isShuffling /*&& CheckingGameComlition()*/)
         {
             isShuffling = true;
             StartCoroutine(WaitForShuffle(0.5f));
-        }*/
+        }
         if(Input.GetKey(KeyCode.Space)) 
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToViewportPoint(Input.mousePosition),Vector2.zero);
@@ -107,7 +108,7 @@ public class GameManager : MonoBehaviour
 
     private bool SwapIsValid(int i, int offset, int checkCollum)
     {
-        if(((i % sizeGame) != checkCollum) && ((i + offset) == emptyLocationLocal))
+       /* if(((i % sizeGame) != checkCollum) && ((i + offset) == emptyLocationLocal))
         {
             (pieces[i], pieces[i + offset]) = (pieces[i + offset], pieces[i]);
 
@@ -117,7 +118,8 @@ public class GameManager : MonoBehaviour
 
             return true;
         }
-        return false;
+        return false;*/
+       return true;
     }
 
     // Only after move piece of picture call this method
@@ -142,6 +144,7 @@ public class GameManager : MonoBehaviour
     //TODO: Do some Shuffling with cards do not use BRUTAL!
     private void Shuffle()
     {
+        /*
         //int shuffleCount = 100;
         int last = 0;
         int count = 0;
@@ -172,5 +175,8 @@ public class GameManager : MonoBehaviour
                 count++;
             }
         }
+        */
+
+        Debug.Log("Every day I am shoffling");
     }
 }
