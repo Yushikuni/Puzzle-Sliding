@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
     {
         pieces = new List<Transform>();
         emptyLocationLocal = (sizeGame * sizeGame) - 1;
-        sizeGame = 4;
+        sizeGame = 5;
         CreateGamePieces(0.01f);
     }
 
@@ -84,7 +84,8 @@ public class GameManager : MonoBehaviour
         if(!isShuffling /*&& CheckingGameComlition()*/)
         {
             isShuffling = true;
-            StartCoroutine(WaitForShuffle(0.5f));
+            //StartCoroutine(WaitForShuffle(0.5f));
+            Debug.Log("Stop shuffle");
         }
         if(Input.GetKey(KeyCode.Space)) 
         {
