@@ -4,7 +4,7 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - gameTransform: {fileID: 7373149732363408681, guid: 04ed7c727172bc04c8acf6c447cbdae3, type: 3}
+  - gameTransform: {fileID: 631556821567726319, guid: 157e0134ec2688f44a7e64b8ffd893f9, type: 3}
   - piecePrefab: {fileID: 7373149732363408681, guid: 04ed7c727172bc04c8acf6c447cbdae3, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}

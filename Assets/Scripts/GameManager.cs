@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Transform gameTransform;
+    [SerializeField] private Transform gameBoard;
     [SerializeField] private Transform piecePrefab;
 
     private List<Transform> pieces;
@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
         { 
             for (int col = 0; col< sizeGame; col++) 
             {
-                Transform piece = Instantiate(piecePrefab, gameTransform);
+                Transform piece = Instantiate(piecePrefab, gameBoard);
                 
                 pieces.Add(piece); 
 
@@ -76,31 +76,57 @@ public class GameManager : MonoBehaviour
         emptyLocationLocal = (sizeGame * sizeGame) - 1;
         sizeGame = 5;
         CreateGamePieces(0.01f);
+        Shuffle();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!isShuffling /*&& CheckingGameComlition()*/)
+        if(!isShuffling && CheckingGameComlition())
         {
             isShuffling = true;
-            //StartCoroutine(WaitForShuffle(0.5f));
+            StartCoroutine(WaitForShuffle(0.5f));
             Debug.Log("Stop shuffle");
+            
         }
-        if(Input.GetKey(KeyCode.Space)) 
+        if (Input.GetMouseButtonDown(0)) // 0 znaèí levé tlaèítko myši
         {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToViewportPoint(Input.mousePosition),Vector2.zero);
+            // Zde provádìjte akce pro stisk levého tlaèítka myši
+            Debug.Log("Levé tlaèítko myši bylo stisknuto");
 
-            if(hit)
+            // Zde mùžete pøidat volání funkce pro pohyb dílkù nebo jinou reakci na stisk myši
+            // Napøíklad: HandleMouseClick();
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToViewportPoint(Input.mousePosition), Vector2.zero);
+
+            if (hit)
             {
-                for(int i = 0; i < pieces.Count; i++) 
+                Debug.Log("Uvnitr fce hit je na true");
+                for (int i = 0; i < pieces.Count; i++)
                 {
+                    Debug.Log("Uvnitr For cyklu");
                     if (pieces[i] == hit.transform)
                     {
-                        if (SwapIsValid(i, -sizeGame, sizeGame)) { break; }
-                        if (SwapIsValid(i, +sizeGame, sizeGame)) { break; }
-                        if (SwapIsValid(i, -1, 0)) { break; }
-                        if (SwapIsValid(i, +1, sizeGame - 1)) { break; }
+                        Debug.Log("kousek na kteryx jsem klikla je roven hit.transform");
+                        if (SwapIsValid(i, -sizeGame, sizeGame)) 
+                        { 
+                            Debug.Log("Tu je brak na i, -sizeGame, sizeGame "); 
+                            break; 
+                        }
+                        if (SwapIsValid(i, +sizeGame, sizeGame)) 
+                        { 
+                            Debug.Log("Tu je brak na i, +sizeGame, sizeGame "); 
+                            break; 
+                        }
+                        if (SwapIsValid(i, -1, 0)) 
+                        { 
+                            Debug.Log("Tu je brak na SwapIsValid(i, -1, 0) "); 
+                            break; 
+                        }
+                        if (SwapIsValid(i, +1, sizeGame - 1)) 
+                        { 
+                            Debug.Log("Tu je brak na i, +1, sizeGame - 1) "); 
+                            break; 
+                        }
                     }
                 }
             }
@@ -109,18 +135,7 @@ public class GameManager : MonoBehaviour
 
     private bool SwapIsValid(int i, int offset, int checkCollum)
     {
-       /* if(((i % sizeGame) != checkCollum) && ((i + offset) == emptyLocationLocal))
-        {
-            (pieces[i], pieces[i + offset]) = (pieces[i + offset], pieces[i]);
-
-            (pieces[i].localPosition, pieces[i + offset].localPosition) = (pieces[i + offset].localPosition, pieces[i].localPosition);
-
-            emptyLocationLocal = i;
-
-            return true;
-        }
-        return false;*/
-       return true;
+        return (i % sizeGame != checkCollum) && (i + offset >= 0) && (i + offset < sizeGame * sizeGame);
     }
 
     // Only after move piece of picture call this method
@@ -145,39 +160,39 @@ public class GameManager : MonoBehaviour
     //TODO: Do some Shuffling with cards do not use BRUTAL!
     private void Shuffle()
     {
-        /*
-        //int shuffleCount = 100;
-        int last = 0;
-        int count = 0;
-        int rnd = Random.Range(0, sizeGame * sizeGame);
-        while (count < (sizeGame * sizeGame * sizeGame)) 
-        { 
-            if (rnd == last) 
-            { 
-                continue; 
-            }
+        int shuffleCount = 100; // Poèet tahù pro zamíchání
+        for (int i = 0; i < shuffleCount; i++)
+        {
+            // Zde provedete náhodný platný tah, napøíklad jako v pøedchozím kódu
+            int randomMove = Random.Range(0, 4);
 
-            last = emptyLocationLocal;
-
-            if(SwapIsValid(rnd, -sizeGame, sizeGame))
-            { 
-                count++; 
-            }
-            else if (SwapIsValid(rnd, +sizeGame, sizeGame))
-            { 
-                count++; 
-            }
-            else if((SwapIsValid(rnd, -1, 0)))
-            { 
-                count++;
-            }
-            else if ((SwapIsValid(rnd, +1, sizeGame - 1)))
+            if (randomMove == 0 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - sizeGame, sizeGame))
             {
-                count++;
+                SwapPieces(emptyLocationLocal, emptyLocationLocal - sizeGame);
             }
+            else if (randomMove == 1 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + sizeGame, sizeGame))
+            {
+                SwapPieces(emptyLocationLocal, emptyLocationLocal + sizeGame);
+            }
+            else if (randomMove == 2 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - 1, 0))
+            {
+                SwapPieces(emptyLocationLocal, emptyLocationLocal - 1);
+            }
+            else if (randomMove == 3 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + 1, sizeGame - 1))
+            {
+                SwapPieces(emptyLocationLocal, emptyLocationLocal + 1);
+            }
+
         }
-        */
 
         Debug.Log("Every day I am shoffling");
+    }
+
+    private void SwapPieces(int fromIndex, int toIndex)
+    {
+        // Provede výmìnu dílkù v seznamu dílkù a aktualizaci jejich pozice.
+        (pieces[fromIndex], pieces[toIndex]) = (pieces[toIndex], pieces[fromIndex]);
+        (pieces[fromIndex].localPosition, pieces[toIndex].localPosition) = (pieces[toIndex].localPosition, pieces[fromIndex].localPosition);
+        emptyLocationLocal = toIndex;
     }
 }

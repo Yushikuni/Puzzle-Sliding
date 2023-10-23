@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0fbd429d005c9d4f88822beda1a841e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTransform: {fileID: 926988925}
+  gameBoard: {fileID: 926988925}
   piecePrefab: {fileID: 7373149732363408681, guid: 04ed7c727172bc04c8acf6c447cbdae3, type: 3}
 --- !u!4 &1168896824
 Transform:
@@ -274,6 +274,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 631556821567726319, guid: 157e0134ec2688f44a7e64b8ffd893f9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 631556821567726319, guid: 157e0134ec2688f44a7e64b8ffd893f9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 631556821567726319, guid: 157e0134ec2688f44a7e64b8ffd893f9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 631556821567726319, guid: 157e0134ec2688f44a7e64b8ffd893f9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -313,6 +325,10 @@ PrefabInstance:
     - target: {fileID: 631556821567726319, guid: 157e0134ec2688f44a7e64b8ffd893f9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 631556821567726319, guid: 157e0134ec2688f44a7e64b8ffd893f9, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5697509382492569984, guid: 157e0134ec2688f44a7e64b8ffd893f9, type: 3}
       propertyPath: m_Name
