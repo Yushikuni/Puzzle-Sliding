@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     private int sizeGame;
 
     private bool isShuffling = false;
+    int,int indexToCoords(int tileIndex);
+    int CoordsToIndex(int X, int Y);
     /*
      For more pictures:
     Hello, is it possible to make a tutorial where you do this with 3 or more pictures? Like after a picture is solved, the level is completed, and a new picture puzzle comes in
@@ -194,5 +196,14 @@ public class GameManager : MonoBehaviour
         (pieces[fromIndex], pieces[toIndex]) = (pieces[toIndex], pieces[fromIndex]);
         (pieces[fromIndex].localPosition, pieces[toIndex].localPosition) = (pieces[toIndex].localPosition, pieces[fromIndex].localPosition);
         emptyLocationLocal = toIndex;
+    }
+
+    int,int indexToCoords(int tileIndex)
+    {
+        return tileIndex;
+    }
+    int CoordsToIndex(int X, int Y)
+    {
+        return X,Y;
     }
 }
