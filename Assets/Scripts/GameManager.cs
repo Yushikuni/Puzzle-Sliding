@@ -10,12 +10,12 @@ public class GameManager : MonoBehaviour
 
     private List<Transform> pieces;
 
-    private int emptyLocationLocal = -1;
+    private int emptyLocationLocal;
     private int sizeGame;
 
     private bool isShuffling = false;
-    int,int indexToCoords(int tileIndex);
-    int CoordsToIndex(int X, int Y);
+    /*int,int indexToCoords(int tileIndex);
+    int CoordsToIndex(int X, int Y);*/
     /*
      For more pictures:
     Hello, is it possible to make a tutorial where you do this with 3 or more pictures? Like after a picture is solved, the level is completed, and a new picture puzzle comes in
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
                 piece.name = $"{(row * sizeGame) + col}";
                 if((row == sizeGame - 1) && (col == sizeGame - 1))
                 {
-                    emptyLocationLocal = (sizeGame * sizeGame) - 1;
+                    //emptyLocationLocal = (sizeGame * sizeGame) - 1;
                     piece.gameObject.SetActive(false); 
                 }
                 else
@@ -75,10 +75,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         pieces = new List<Transform>();
+        
+        sizeGame = 5;        
         emptyLocationLocal = (sizeGame * sizeGame) - 1;
-        sizeGame = 5;
+                
         CreateGamePieces(0.01f);
-        Shuffle();
+
+        SwapPieces(24, 23);
+        //Shuffle();
     }
 
     // Update is called once per frame
@@ -88,45 +92,42 @@ public class GameManager : MonoBehaviour
         {
             isShuffling = true;
             StartCoroutine(WaitForShuffle(0.5f));
-            Debug.Log("Stop shuffle");
+           // Debug.Log("Stop shuffle");
             
         }
         if (Input.GetMouseButtonDown(0)) // 0 znaèí levé tlaèítko myši
         {
-            // Zde provádìjte akce pro stisk levého tlaèítka myši
-            Debug.Log("Levé tlaèítko myši bylo stisknuto");
-
             // Zde mùžete pøidat volání funkce pro pohyb dílkù nebo jinou reakci na stisk myši
             // Napøíklad: HandleMouseClick();
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToViewportPoint(Input.mousePosition), Vector2.zero);
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
-            if (hit)
+            if (hit == hit.transform)
             {
-                Debug.Log("Uvnitr fce hit je na true");
+                //Debug.Log("Uvnitr fce hit je na true");
                 for (int i = 0; i < pieces.Count; i++)
                 {
-                    Debug.Log("Uvnitr For cyklu");
+                    //Debug.Log("Uvnitr For cyklu");
                     if (pieces[i] == hit.transform)
                     {
-                        Debug.Log("kousek na kteryx jsem klikla je roven hit.transform");
+                        //Debug.Log("kousek na kteryx jsem klikla je roven hit.transform");
                         if (SwapIsValid(i, -sizeGame, sizeGame)) 
-                        { 
-                            Debug.Log("Tu je brak na i, -sizeGame, sizeGame "); 
+                        {
+                            //Debug.Log("Tu je brak na i, -sizeGame, sizeGame "); 
                             break; 
                         }
                         if (SwapIsValid(i, +sizeGame, sizeGame)) 
                         { 
-                            Debug.Log("Tu je brak na i, +sizeGame, sizeGame "); 
+                            //Debug.Log("Tu je brak na i, +sizeGame, sizeGame "); 
                             break; 
                         }
                         if (SwapIsValid(i, -1, 0)) 
                         { 
-                            Debug.Log("Tu je brak na SwapIsValid(i, -1, 0) "); 
+                            //Debug.Log("Tu je brak na SwapIsValid(i, -1, 0) "); 
                             break; 
                         }
                         if (SwapIsValid(i, +1, sizeGame - 1)) 
                         { 
-                            Debug.Log("Tu je brak na i, +1, sizeGame - 1) "); 
+                            //Debug.Log("Tu je brak na i, +1, sizeGame - 1) "); 
                             break; 
                         }
                     }
@@ -135,11 +136,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //swap je validni pokud je cerne policko vedle necerneho a zaroven neni mimo herni pole
     private bool SwapIsValid(int i, int offset, int checkCollum)
     {
-        return (i % sizeGame != checkCollum) && (i + offset >= 0) && (i + offset < sizeGame * sizeGame);
+        // celkom 6 podminek
+        //pozice 23 a offset je 5
+        bool isNotOffset = i + offset < (sizeGame * sizeGame); // jsi v poli //OK
+        bool anotherBool = i >= 0;
+        bool isOffset = i < (sizeGame * sizeGame); //jsi v poli
+        bool nani = (i + offset >= 0); //OK
+        bool co1 = (i + offset == emptyLocationLocal); //OK 
+        bool co2 = (i % sizeGame != checkCollum); //pravy a levy sloupec
+        
+        bool result = co1 && co2 && isNotOffset && nani && isOffset && anotherBool;
+        return result;
     }
 
+    
     // Only after move piece of picture call this method
     private bool CheckingGameComlition()
     {
@@ -187,9 +200,9 @@ public class GameManager : MonoBehaviour
 
         }
 
-        Debug.Log("Every day I am shoffling");
+        //Debug.Log("Every day I am shoffling");
     }
-
+    //exception out of index range
     private void SwapPieces(int fromIndex, int toIndex)
     {
         // Provede výmìnu dílkù v seznamu dílkù a aktualizaci jejich pozice.
@@ -198,12 +211,12 @@ public class GameManager : MonoBehaviour
         emptyLocationLocal = toIndex;
     }
 
-    int,int indexToCoords(int tileIndex)
+   /* int,int indexToCoords(int tileIndex)
     {
         return tileIndex;
     }
     int CoordsToIndex(int X, int Y)
     {
         return X,Y;
-    }
+    }*/
 }
