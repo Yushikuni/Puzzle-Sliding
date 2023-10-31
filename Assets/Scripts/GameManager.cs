@@ -19,12 +19,12 @@ public class GameManager : MonoBehaviour
     /*
      For more pictures:
     Hello, is it possible to make a tutorial where you do this with 3 or more pictures? Like after a picture is solved, the level is completed, and a new picture puzzle comes in
-    Odpovìdìt
+    OdpovÃ¬dÃ¬t
     Firnox
-·2 odpovìdi
+Â·2 odpovÃ¬di
         @FirnoxGames
         @FirnoxGames
-        pøed 6 mìsíci
+        pÃ¸ed 6 mÃ¬sÃ­ci
         Hey, the part of the code where the image is assigned to the piece is the mr.sharedMaterial = newMat line. So to do this what you could do to do this is change the definition of this into a list: [SerializeField] private List<Material> newMat; And assign several materials with your different images on and assign them in the inspector. Then in the WaitShuffle method after waiting but before the shuffle choose a random image (or the next one) and assign it to each of the pieces:
         foreach (Transform piece in pieces):
           MeshRenderer mr = piece.GetComponent<MeshRenderer>();
@@ -95,10 +95,10 @@ public class GameManager : MonoBehaviour
            // Debug.Log("Stop shuffle");
             
         }
-        if (Input.GetMouseButtonDown(0)) // 0 znaèí levé tlaèítko myši
+        if (Input.GetMouseButtonDown(0)) // 0 znaÃ¨Ã­ levÃ© tlaÃ¨Ã­tko myÅ¡i
         {
-            // Zde mùžete pøidat volání funkce pro pohyb dílkù nebo jinou reakci na stisk myši
-            // Napøíklad: HandleMouseClick();
+            // Zde mÃ¹Å¾ete pÃ¸idat volÃ¡nÃ­ funkce pro pohyb dÃ­lkÃ¹ nebo jinou reakci na stisk myÅ¡i
+            // NapÃ¸Ã­klad: HandleMouseClick();
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
             if (hit == hit.transform)
@@ -139,7 +139,23 @@ public class GameManager : MonoBehaviour
     //swap je validni pokud je cerne policko vedle necerneho a zaroven neni mimo herni pole
     private bool SwapIsValid(int i, int offset, int checkCollum)
     {
-        // celkom 6 podminek
+        int origin = i;
+        int destination = i + offset;
+        //pravy a levy sloupec
+        bool collCheck = (origin % sizeGame != checkCollum);
+        //pole nejsou  mimo zacatek hernho pole
+        bool originBottomBounds = (origin >=0);
+        bool detinationBottomBounds=(destination >=0);
+        //pole nejsou mimo konec seznamu
+        bool originOutOfBounds = (origin < (sizeGame * sizeGame));
+        bool destinationOutOfBounds = (destination < (sizeGame * sizeGame));
+        //Cilove pole je prazdne pole
+        bool destionationIsEmpty = (destination == emptyLocationLocal); 
+        return
+        (collCheck && originBottomBounds && detinationBottomBounds && originOutOfBounds && destinationOutOfBounds && destionationIsEmpty);
+            
+            
+        /*// celkom 6 podminek
         //pozice 23 a offset je 5
         bool isNotOffset = i + offset < (sizeGame * sizeGame); // jsi v poli //OK
         bool anotherBool = i >= 0;
@@ -149,7 +165,7 @@ public class GameManager : MonoBehaviour
         bool co2 = (i % sizeGame != checkCollum); //pravy a levy sloupec
         
         bool result = co1 && co2 && isNotOffset && nani && isOffset && anotherBool;
-        return result;
+        return result;*/
     }
 
     
@@ -175,10 +191,10 @@ public class GameManager : MonoBehaviour
     //TODO: Do some Shuffling with cards do not use BRUTAL!
     private void Shuffle()
     {
-        int shuffleCount = 100; // Poèet tahù pro zamíchání
+        int shuffleCount = 100; // PoÃ¨et tahÃ¹ pro zamÃ­chÃ¡nÃ­
         for (int i = 0; i < shuffleCount; i++)
         {
-            // Zde provedete náhodný platný tah, napøíklad jako v pøedchozím kódu
+            // Zde provedete nÃ¡hodnÃ½ platnÃ½ tah, napÃ¸Ã­klad jako v pÃ¸edchozÃ­m kÃ³du
             int randomMove = Random.Range(0, 4);
 
             if (randomMove == 0 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - sizeGame, sizeGame))
@@ -205,7 +221,7 @@ public class GameManager : MonoBehaviour
     //exception out of index range
     private void SwapPieces(int fromIndex, int toIndex)
     {
-        // Provede výmìnu dílkù v seznamu dílkù a aktualizaci jejich pozice.
+        // Provede vÃ½mÃ¬nu dÃ­lkÃ¹ v seznamu dÃ­lkÃ¹ a aktualizaci jejich pozice.
         (pieces[fromIndex], pieces[toIndex]) = (pieces[toIndex], pieces[fromIndex]);
         (pieces[fromIndex].localPosition, pieces[toIndex].localPosition) = (pieces[toIndex].localPosition, pieces[fromIndex].localPosition);
         emptyLocationLocal = toIndex;
