@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform piecePrefab;
 
     private List<Transform> pieces;
+    //private List<Moves> possibleMoves;
 
     private int emptyLocationLocal;
     private int sizeGame;
@@ -32,6 +33,10 @@ public class GameManager : MonoBehaviour
      */
     /*
      TODO:
+    ----------------------------------------------------------------
+    1. Fixnout metodu Shuffle s tím co mám
+
+    ----------------------------------------------------------------
     1. Fix mouse button
     2. fixing freezing of unity 3d in some methods
     3. Add more pictures!
@@ -81,14 +86,14 @@ public class GameManager : MonoBehaviour
                 
         CreateGamePieces(0.01f);
 
-        SwapPieces(24, 23);
+        //SwapPieces(24, 23);
         //Shuffle();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!isShuffling && CheckingGameComlition())
+        /* if(!isShuffling && CheckingGameComlition())
         {
             isShuffling = true;
             StartCoroutine(WaitForShuffle(0.5f));
@@ -133,7 +138,7 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-        }
+        }*/
     }
 
     //swap je validni pokud je cerne policko vedle necerneho a zaroven neni mimo herni pole
