@@ -113,10 +113,16 @@ public class GameManager : MonoBehaviour
                     //Debug.Log("Uvnitr For cyklu");
                     if (pieces[i] == hit.transform)
                     {
-                        Debug.Log("T/F: SwapIsValid(i, -sizeGame, sizeGame): " + SwapIsValid(i, -sizeGame, sizeGame));
-                        Debug.Log("T/F: SwapIsValid(i, +sizeGame, sizeGame): " + SwapIsValid(i, +sizeGame, sizeGame));
-                        Debug.Log("T/F: SwapIsValid(i, -1, 0):               " + SwapIsValid(i, -1, 0));
-                        Debug.Log("T/F: SwapIsValid(i, +1, sizeGame - 1):    " + SwapIsValid(i, +1, sizeGame - 1));
+                        Debug.Log("T/F: SwapIsValid(i, -sizeGame, sizeGame): " + SwapIsValid(i, -sizeGame, sizeGame));  // down to up ^
+                        Debug.Log("T/F: SwapIsValid(i, +sizeGame, sizeGame): " + SwapIsValid(i, +sizeGame, sizeGame));  // up to down ˇ
+                        Debug.Log("T/F: SwapIsValid(i, -1, 0):               " + SwapIsValid(i, -1, 0));                // right to left <-
+                        Debug.Log("T/F: SwapIsValid(i, +1, sizeGame - 1):    " + SwapIsValid(i, +1, sizeGame - 1));     // left to right ->
+
+                        /*
+                         TODO:
+                        1. Scout the debug log more carefully and understand it
+                        2. rewrite if/else statements for not using break but do it simply(just change break to swap)
+                         */
                         /* if (SwapIsValid(i, -sizeGame, sizeGame)) 
                          {
                              //Debug.Log("Tu je brak na i, -sizeGame, sizeGame "); 
