@@ -93,52 +93,54 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /* if(!isShuffling && CheckingGameComlition())
+        
+        if(!isShuffling && CheckingGameComlition())
         {
-            isShuffling = true;
+            //isShuffling = true;
             StartCoroutine(WaitForShuffle(0.5f));
-           // Debug.Log("Stop shuffle");
+            //Debug.Log("Stop shuffle");
             
         }
-        if (Input.GetMouseButtonDown(0)) // 0 znaèí levé tlaèítko myši
+        if (Input.GetMouseButtonDown(0)) // 0 mark left mouse button
         {
-            // Zde mùžete pøidat volání funkce pro pohyb dílkù nebo jinou reakci na stisk myši
-            // Napøíklad: HandleMouseClick();
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
             if (hit == hit.transform)
             {
-                //Debug.Log("Uvnitr fce hit je na true");
-                for (int i = 0; i < pieces.Count; i++)
-                {
+                Debug.Log("Uvnitr fce hit je na true");
+               for (int i = 0; i < pieces.Count; i++)
+               {
                     //Debug.Log("Uvnitr For cyklu");
                     if (pieces[i] == hit.transform)
                     {
-                        //Debug.Log("kousek na kteryx jsem klikla je roven hit.transform");
-                        if (SwapIsValid(i, -sizeGame, sizeGame)) 
-                        {
-                            //Debug.Log("Tu je brak na i, -sizeGame, sizeGame "); 
-                            break; 
-                        }
-                        if (SwapIsValid(i, +sizeGame, sizeGame)) 
-                        { 
-                            //Debug.Log("Tu je brak na i, +sizeGame, sizeGame "); 
-                            break; 
-                        }
-                        if (SwapIsValid(i, -1, 0)) 
-                        { 
-                            //Debug.Log("Tu je brak na SwapIsValid(i, -1, 0) "); 
-                            break; 
-                        }
-                        if (SwapIsValid(i, +1, sizeGame - 1)) 
-                        { 
-                            //Debug.Log("Tu je brak na i, +1, sizeGame - 1) "); 
-                            break; 
-                        }
+                        Debug.Log("T/F: SwapIsValid(i, -sizeGame, sizeGame): " + SwapIsValid(i, -sizeGame, sizeGame));
+                        Debug.Log("T/F: SwapIsValid(i, +sizeGame, sizeGame): " + SwapIsValid(i, +sizeGame, sizeGame));
+                        Debug.Log("T/F: SwapIsValid(i, -1, 0):               " + SwapIsValid(i, -1, 0));
+                        Debug.Log("T/F: SwapIsValid(i, +1, sizeGame - 1):    " + SwapIsValid(i, +1, sizeGame - 1));
+                        /* if (SwapIsValid(i, -sizeGame, sizeGame)) 
+                         {
+                             //Debug.Log("Tu je brak na i, -sizeGame, sizeGame "); 
+                             break; 
+                         }
+                         if (SwapIsValid(i, +sizeGame, sizeGame)) 
+                         { 
+                             //Debug.Log("Tu je brak na i, +sizeGame, sizeGame "); 
+                             break; 
+                         }
+                         if (SwapIsValid(i, -1, 0)) 
+                         { 
+                             //Debug.Log("Tu je brak na SwapIsValid(i, -1, 0) "); 
+                             break; 
+                         }
+                         if (SwapIsValid(i, +1, sizeGame - 1)) 
+                         { 
+                             //Debug.Log("Tu je brak na i, +1, sizeGame - 1) "); 
+                             break; 
+                         }*/
                     }
-                }
+               }
             }
-        }*/
+        }
     }
 
     //swap je validni pokud je cerne policko vedle necerneho a zaroven neni mimo herni pole
@@ -196,32 +198,65 @@ public class GameManager : MonoBehaviour
     //TODO: Do some Shuffling with cards do not use BRUTAL!
     private void Shuffle()
     {
-        int shuffleCount = 100; // Poèet tahù pro zamíchání
+        isShuffling = true;
+
+        int shuffleCount = 5; // Counter for shuffel method
+
         for (int i = 0; i < shuffleCount; i++)
         {
             // Zde provedete náhodný platný tah, napøíklad jako v pøedchozím kódu
             int randomMove = Random.Range(0, 4);
-
+            //Debug.Log("Random mode range: " + randomMove);
+            /*
             if (randomMove == 0 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - sizeGame, sizeGame))
             {
-                SwapPieces(emptyLocationLocal, emptyLocationLocal - sizeGame);
+                //SwapPieces(emptyLocationLocal, emptyLocationLocal - sizeGame);
+                SwapPieces(emptyLocationLocal - sizeGame, emptyLocationLocal);
             }
             else if (randomMove == 1 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + sizeGame, sizeGame))
             {
-                SwapPieces(emptyLocationLocal, emptyLocationLocal + sizeGame);
+                //SwapPieces(emptyLocationLocal, emptyLocationLocal + sizeGame);
+                SwapPieces(emptyLocationLocal + sizeGame, emptyLocationLocal);
             }
             else if (randomMove == 2 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - 1, 0))
             {
-                SwapPieces(emptyLocationLocal, emptyLocationLocal - 1);
+                //SwapPieces(emptyLocationLocal, emptyLocationLocal - 1);
+                SwapPieces(emptyLocationLocal - 1 ,emptyLocationLocal);
             }
             else if (randomMove == 3 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + 1, sizeGame - 1))
             {
-                SwapPieces(emptyLocationLocal, emptyLocationLocal + 1);
+                //SwapPieces(emptyLocationLocal, emptyLocationLocal + 1);
+                SwapPieces(emptyLocationLocal + 1, emptyLocationLocal);
+            }*/
+
+            int targetIndex = -1;
+
+            if (randomMove == 0 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - sizeGame, sizeGame))
+            {
+                targetIndex = emptyLocationLocal - sizeGame;
+            }
+            else if (randomMove == 1 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + sizeGame, sizeGame))
+            {
+                targetIndex = emptyLocationLocal + sizeGame;
+            }
+            else if (randomMove == 2 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - 1, 0))
+            {
+                targetIndex = emptyLocationLocal - 1;
+            }
+            else if (randomMove == 3 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + 1, sizeGame - 1))
+            {
+                targetIndex = emptyLocationLocal + 1;
+            }
+
+            if (targetIndex >= 0)
+            {
+                SwapPieces(emptyLocationLocal, targetIndex);
+                emptyLocationLocal = targetIndex; // Aktualizujeme pozici prázdného políčka
             }
 
         }
-
         //Debug.Log("Every day I am shoffling");
+        //isShuffling = false;
     }
     //exception out of index range
     private void SwapPieces(int fromIndex, int toIndex)
