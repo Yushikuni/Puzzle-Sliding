@@ -117,12 +117,28 @@ public class GameManager : MonoBehaviour
                         if(SwapIsValid(i, -sizeGame, sizeGame))
                         {
                             //SwapPieces(/*ColorIndex, BlankIndex*/)
+                            SwapPieces(i,emptyLocationLocal);
                         }
                         Debug.Log("T/F: SwapIsValid(i, +sizeGame, sizeGame): " + SwapIsValid(i, +sizeGame, sizeGame));  // up to down ˇ
-                        
+                        if (SwapIsValid(i, +sizeGame, sizeGame))
+                        {
+                            //SwapPieces(/*ColorIndex, BlankIndex*/)
+                            SwapPieces(i, emptyLocationLocal);
+                        }
+
                         Debug.Log("T/F: SwapIsValid(i, -1, 0):               " + SwapIsValid(i, -1, 0));                // right to left <-
-                        
+                        if (SwapIsValid(i, -1, 0))
+                        {
+                            //SwapPieces(/*ColorIndex, BlankIndex*/)
+                            SwapPieces(i, emptyLocationLocal);
+                        }
+
                         Debug.Log("T/F: SwapIsValid(i, +1, sizeGame - 1):    " + SwapIsValid(i, +1, sizeGame - 1));     // left to right ->
+                        if (SwapIsValid(i, +1, sizeGame - 1))
+                        {
+                            //SwapPieces(/*ColorIndex, BlankIndex*/)
+                            SwapPieces(i, emptyLocationLocal);
+                        }
 
                         /*
                          TODO:
