@@ -251,6 +251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameBoard: {fileID: 926988925}
   piecePrefab: {fileID: 7373149732363408681, guid: 04ed7c727172bc04c8acf6c447cbdae3, type: 3}
+  sizeGame: 2
 --- !u!4 &1168896824
 Transform:
   m_ObjectHideFlags: 0

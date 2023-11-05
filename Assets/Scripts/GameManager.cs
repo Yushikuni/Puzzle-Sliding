@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     //private List<Moves> possibleMoves;
 
     private int emptyLocationLocal;
-    private int sizeGame;
+    public int sizeGame;
 
     private bool isShuffling = false;
     /*int,int indexToCoords(int tileIndex);
@@ -81,13 +81,15 @@ public class GameManager : MonoBehaviour
     {
         pieces = new List<Transform>();
         
-        sizeGame = 5;        
-        emptyLocationLocal = (sizeGame * sizeGame) - 1;
-                
-        CreateGamePieces(0.01f);
+        if(sizeGame != 0 || sizeGame != null ) 
+        {
+            emptyLocationLocal = (sizeGame * sizeGame) - 1;
 
-        //SwapPieces(24, 23);
-        //Shuffle();
+            CreateGamePieces(0.01f);
+
+            //SwapPieces(24, 23);
+            //Shuffle();
+        }
     }
 
     // Update is called once per frame
@@ -113,33 +115,36 @@ public class GameManager : MonoBehaviour
                     //Debug.Log("Uvnitr For cyklu");
                     if (pieces[i] == hit.transform)
                     {
-                        Debug.Log("T/F: SwapIsValid(i, -sizeGame, sizeGame): " + SwapIsValid(i, -sizeGame, sizeGame));  // down to up ^
                         if(SwapIsValid(i, -sizeGame, sizeGame))
                         {
+                            Debug.Log("T/F: SwapIsValid(i, -sizeGame, sizeGame): " + SwapIsValid(i, -sizeGame, sizeGame));  // down to up ^
+                            Debug.Log("EmptyLocationLocal on i: " + emptyLocationLocal + i.ToString());
                             //SwapPieces(/*ColorIndex, BlankIndex*/)
                             SwapPieces(i,emptyLocationLocal);
                         }
-                        Debug.Log("T/F: SwapIsValid(i, +sizeGame, sizeGame): " + SwapIsValid(i, +sizeGame, sizeGame));  // up to down ˇ
-                        if (SwapIsValid(i, +sizeGame, sizeGame))
+                        else if (SwapIsValid(i, +sizeGame, sizeGame))
                         {
+                            Debug.Log("T/F: SwapIsValid(i, +sizeGame, sizeGame): " + SwapIsValid(i, +sizeGame, sizeGame));  // up to down ˇ
+                            Debug.Log("EmptyLocationLocal on i: " + emptyLocationLocal + i.ToString());
                             //SwapPieces(/*ColorIndex, BlankIndex*/)
                             SwapPieces(i, emptyLocationLocal);
                         }
 
-                        Debug.Log("T/F: SwapIsValid(i, -1, 0):               " + SwapIsValid(i, -1, 0));                // right to left <-
-                        if (SwapIsValid(i, -1, 0))
+                        else if (SwapIsValid(i, -1, 0))
                         {
+                            Debug.Log("T/F: SwapIsValid(i, -1, 0):               " + SwapIsValid(i, -1, 0));                // right to left <-
+                            Debug.Log("EmptyLocationLocal on i: " + emptyLocationLocal + i.ToString());
                             //SwapPieces(/*ColorIndex, BlankIndex*/)
                             SwapPieces(i, emptyLocationLocal);
                         }
-
-                        Debug.Log("T/F: SwapIsValid(i, +1, sizeGame - 1):    " + SwapIsValid(i, +1, sizeGame - 1));     // left to right ->
-                        if (SwapIsValid(i, +1, sizeGame - 1))
+                        else if (SwapIsValid(i, +1, sizeGame - 1))
                         {
+                            Debug.Log("T/F: SwapIsValid(i, +1, sizeGame - 1):    " + SwapIsValid(i, +1, sizeGame - 1));     // left to right ->
+                            Debug.Log("EmptyLocationLocal on i: " + emptyLocationLocal + i.ToString());
                             //SwapPieces(/*ColorIndex, BlankIndex*/)
                             SwapPieces(i, emptyLocationLocal);
                         }
-
+                        // Vypada to na to že si to pamatuje posledni pozici, nedokazu zmenit nic, jen posledni mi jde prohodit s predchozi
                         /*
                          TODO:
                         1. Scout the debug log more carefully and understand it
