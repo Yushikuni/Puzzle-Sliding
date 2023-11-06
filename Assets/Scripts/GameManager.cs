@@ -120,14 +120,14 @@ public class GameManager : MonoBehaviour
                             Debug.Log("T/F: SwapIsValid(i, -sizeGame, sizeGame): " + SwapIsValid(i, -sizeGame, sizeGame));  // down to up ^
                             Debug.Log("EmptyLocationLocal on i: " + emptyLocationLocal + i.ToString());
                             //SwapPieces(/*ColorIndex, BlankIndex*/)
-                            SwapPieces(i,emptyLocationLocal);
+                            SwapPieces(emptyLocationLocal, i);
                         }
                         else if (SwapIsValid(i, +sizeGame, sizeGame))
                         {
                             Debug.Log("T/F: SwapIsValid(i, +sizeGame, sizeGame): " + SwapIsValid(i, +sizeGame, sizeGame));  // up to down ˇ
                             Debug.Log("EmptyLocationLocal on i: " + emptyLocationLocal + i.ToString());
                             //SwapPieces(/*ColorIndex, BlankIndex*/)
-                            SwapPieces(i, emptyLocationLocal);
+                            SwapPieces(emptyLocationLocal, i);
                         }
 
                         else if (SwapIsValid(i, -1, 0))
@@ -135,14 +135,14 @@ public class GameManager : MonoBehaviour
                             Debug.Log("T/F: SwapIsValid(i, -1, 0):               " + SwapIsValid(i, -1, 0));                // right to left <-
                             Debug.Log("EmptyLocationLocal on i: " + emptyLocationLocal + i.ToString());
                             //SwapPieces(/*ColorIndex, BlankIndex*/)
-                            SwapPieces(i, emptyLocationLocal);
+                            SwapPieces(emptyLocationLocal, i);
                         }
                         else if (SwapIsValid(i, +1, sizeGame - 1))
                         {
                             Debug.Log("T/F: SwapIsValid(i, +1, sizeGame - 1):    " + SwapIsValid(i, +1, sizeGame - 1));     // left to right ->
                             Debug.Log("EmptyLocationLocal on i: " + emptyLocationLocal + i.ToString());
                             //SwapPieces(/*ColorIndex, BlankIndex*/)
-                            SwapPieces(i, emptyLocationLocal);
+                            SwapPieces(emptyLocationLocal, i);
                         }
                         // Vypada to na to že si to pamatuje posledni pozici, nedokazu zmenit nic, jen posledni mi jde prohodit s predchozi
                         /*
