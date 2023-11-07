@@ -285,12 +285,6 @@ public class GameManager : MonoBehaviour
                 targetIndex = emptyLocationLocal + 1;
             }
 
-            if (targetIndex >= 0)
-            {
-                SwapPieces(emptyLocationLocal, targetIndex);
-                emptyLocationLocal = targetIndex; // Aktualizujeme pozici prázdného políčka
-            }
-
         }
         //Debug.Log("Every day I am shoffling");
         //isShuffling = false;
