@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
     {
         pieces = new List<Transform>();
         
-        if(sizeGame != 0 || sizeGame != null ) 
+        if(sizeGame > 0) 
         {
             emptyLocationLocal = (sizeGame * sizeGame) - 1;
 
@@ -121,6 +121,7 @@ public class GameManager : MonoBehaviour
                             Debug.Log("EmptyLocationLocal on i: " + emptyLocationLocal + i.ToString());
                             //SwapPieces(/*ColorIndex, BlankIndex*/)
                             SwapPieces(emptyLocationLocal, i);
+                            break;
                         }
                         else if (SwapIsValid(i, +sizeGame, sizeGame))
                         {
@@ -128,6 +129,7 @@ public class GameManager : MonoBehaviour
                             Debug.Log("EmptyLocationLocal on i: " + emptyLocationLocal + i.ToString());
                             //SwapPieces(/*ColorIndex, BlankIndex*/)
                             SwapPieces(emptyLocationLocal, i);
+                            break;
                         }
 
                         else if (SwapIsValid(i, -1, 0))
@@ -136,6 +138,7 @@ public class GameManager : MonoBehaviour
                             Debug.Log("EmptyLocationLocal on i: " + emptyLocationLocal + i.ToString());
                             //SwapPieces(/*ColorIndex, BlankIndex*/)
                             SwapPieces(emptyLocationLocal, i);
+                            break;
                         }
                         else if (SwapIsValid(i, +1, sizeGame - 1))
                         {
@@ -143,6 +146,7 @@ public class GameManager : MonoBehaviour
                             Debug.Log("EmptyLocationLocal on i: " + emptyLocationLocal + i.ToString());
                             //SwapPieces(/*ColorIndex, BlankIndex*/)
                             SwapPieces(emptyLocationLocal, i);
+                            break;
                         }
                         // Vypada to na to že si to pamatuje posledni pozici, nedokazu zmenit nic, jen posledni mi jde prohodit s predchozi
                         /*
