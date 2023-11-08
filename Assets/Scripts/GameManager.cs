@@ -98,7 +98,7 @@ public class GameManager : MonoBehaviour
         
         if(!isShuffling && CheckingGameComlition())
         {
-            //isShuffling = true;
+            isShuffling = true;
             StartCoroutine(WaitForShuffle(0.5f));
             //Debug.Log("Stop shuffle");
             
