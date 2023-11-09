@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
             CreateGamePieces(0.01f);
 
             //SwapPieces(24, 23);
-            //Shuffle();
+            Shuffle();
         }
     }
 
