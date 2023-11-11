@@ -148,32 +148,6 @@ public class GameManager : MonoBehaviour
                             SwapPieces(emptyLocationLocal, i);
                             break;
                         }
-                        // Vypada to na to že si to pamatuje posledni pozici, nedokazu zmenit nic, jen posledni mi jde prohodit s predchozi
-                        /*
-                         TODO:
-                        1. Scout the debug log more carefully and understand it
-                        2. rewrite if/else statements for not using break but do it simply(just change break to swap)
-                         */
-                        /* if (SwapIsValid(i, -sizeGame, sizeGame)) 
-                         {
-                             //Debug.Log("Tu je brak na i, -sizeGame, sizeGame "); 
-                             break; 
-                         }
-                         if (SwapIsValid(i, +sizeGame, sizeGame)) 
-                         { 
-                             //Debug.Log("Tu je brak na i, +sizeGame, sizeGame "); 
-                             break; 
-                         }
-                         if (SwapIsValid(i, -1, 0)) 
-                         { 
-                             //Debug.Log("Tu je brak na SwapIsValid(i, -1, 0) "); 
-                             break; 
-                         }
-                         if (SwapIsValid(i, +1, sizeGame - 1)) 
-                         { 
-                             //Debug.Log("Tu je brak na i, +1, sizeGame - 1) "); 
-                             break; 
-                         }*/
                     }
                }
             }
@@ -244,7 +218,53 @@ public class GameManager : MonoBehaviour
             // Zde provedete náhodný platný tah, napøíklad jako v pøedchozím kódu
             int randomMove = Random.Range(0, 4);
             //Debug.Log("Random mode range: " + randomMove);
-            /*
+            
+            int targetIndex = -1;
+
+            if (randomMove == 0 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - sizeGame, sizeGame))
+            {
+                targetIndex = emptyLocationLocal - sizeGame;
+                SwapPieces(emptyLocationLocal, targetIndex);
+            }
+            else if (randomMove == 1 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + sizeGame, sizeGame))
+            {
+                targetIndex = emptyLocationLocal + sizeGame;
+                SwapPieces(emptyLocationLocal, targetIndex);
+            }
+            else if (randomMove == 2 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - 1, 0))
+            {
+                targetIndex = emptyLocationLocal - 1;
+                SwapPieces(emptyLocationLocal, targetIndex);
+            }
+            else if (randomMove == 3 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + 1, sizeGame - 1))
+            {
+                targetIndex = emptyLocationLocal + 1;
+                SwapPieces(emptyLocationLocal, targetIndex);
+            }
+
+        }
+        //Debug.Log("Every day I am shoffling");
+        isShuffling = false;
+    }
+    //exception out of index range
+    private void SwapPieces(int fromIndex, int toIndex)
+    {
+        // Provede výmìnu dílkù v seznamu dílkù a aktualizaci jejich pozice.
+        (pieces[fromIndex], pieces[toIndex]) = (pieces[toIndex], pieces[fromIndex]);
+        (pieces[fromIndex].localPosition, pieces[toIndex].localPosition) = (pieces[toIndex].localPosition, pieces[fromIndex].localPosition);
+        emptyLocationLocal = toIndex;
+    }
+
+    /* int,int indexToCoords(int tileIndex)
+     {
+         return tileIndex;
+     }
+     int CoordsToIndex(int X, int Y)
+     {
+         return X,Y;
+     }*/
+
+    /*
             if (randomMove == 0 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - sizeGame, sizeGame))
             {
                 //SwapPieces(emptyLocationLocal, emptyLocationLocal - sizeGame);
@@ -265,45 +285,4 @@ public class GameManager : MonoBehaviour
                 //SwapPieces(emptyLocationLocal, emptyLocationLocal + 1);
                 SwapPieces(emptyLocationLocal + 1, emptyLocationLocal);
             }*/
-
-            int targetIndex = -1;
-
-            if (randomMove == 0 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - sizeGame, sizeGame))
-            {
-                targetIndex = emptyLocationLocal - sizeGame;
-            }
-            else if (randomMove == 1 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + sizeGame, sizeGame))
-            {
-                targetIndex = emptyLocationLocal + sizeGame;
-            }
-            else if (randomMove == 2 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - 1, 0))
-            {
-                targetIndex = emptyLocationLocal - 1;
-            }
-            else if (randomMove == 3 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + 1, sizeGame - 1))
-            {
-                targetIndex = emptyLocationLocal + 1;
-            }
-
-        }
-        //Debug.Log("Every day I am shoffling");
-        //isShuffling = false;
-    }
-    //exception out of index range
-    private void SwapPieces(int fromIndex, int toIndex)
-    {
-        // Provede výmìnu dílkù v seznamu dílkù a aktualizaci jejich pozice.
-        (pieces[fromIndex], pieces[toIndex]) = (pieces[toIndex], pieces[fromIndex]);
-        (pieces[fromIndex].localPosition, pieces[toIndex].localPosition) = (pieces[toIndex].localPosition, pieces[fromIndex].localPosition);
-        emptyLocationLocal = toIndex;
-    }
-
-   /* int,int indexToCoords(int tileIndex)
-    {
-        return tileIndex;
-    }
-    int CoordsToIndex(int X, int Y)
-    {
-        return X,Y;
-    }*/
 }
