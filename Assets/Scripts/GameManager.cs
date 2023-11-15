@@ -78,11 +78,10 @@ public class GameManager : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        pieces = new List<Transform>();
-        
+    {  
         if(sizeGame > 0) 
         {
+            pieces = new List<Transform>();
             emptyLocationLocal = (sizeGame * sizeGame) - 1;
 
             CreateGamePieces(0.01f);
@@ -220,28 +219,31 @@ public class GameManager : MonoBehaviour
             //Debug.Log("Random mode range: " + randomMove);
             
             int targetIndex = -1;
+            if (targetIndex != -1)
+            {
+                SwapPieces(emptyLocationLocal, targetIndex);
 
-            if (randomMove == 0 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - sizeGame, sizeGame))
-            {
-                targetIndex = emptyLocationLocal - sizeGame;
-                SwapPieces(emptyLocationLocal, targetIndex);
-            }
-            else if (randomMove == 1 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + sizeGame, sizeGame))
-            {
-                targetIndex = emptyLocationLocal + sizeGame;
-                SwapPieces(emptyLocationLocal, targetIndex);
-            }
-            else if (randomMove == 2 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - 1, 0))
-            {
-                targetIndex = emptyLocationLocal - 1;
-                SwapPieces(emptyLocationLocal, targetIndex);
-            }
-            else if (randomMove == 3 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + 1, sizeGame - 1))
-            {
-                targetIndex = emptyLocationLocal + 1;
-                SwapPieces(emptyLocationLocal, targetIndex);
-            }
-
+                if (randomMove == 0 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - sizeGame, sizeGame))
+                {
+                    targetIndex = emptyLocationLocal - sizeGame;
+                    SwapPieces(emptyLocationLocal, targetIndex);
+                }
+                else if (randomMove == 1 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + sizeGame, sizeGame))
+                {
+                    targetIndex = emptyLocationLocal + sizeGame;
+                    SwapPieces(emptyLocationLocal, targetIndex);
+                }
+                else if (randomMove == 2 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - 1, 0))
+                {
+                    targetIndex = emptyLocationLocal - 1;
+                    SwapPieces(emptyLocationLocal, targetIndex);
+                }
+                else if (randomMove == 3 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + 1, sizeGame - 1))
+                {
+                    targetIndex = emptyLocationLocal + 1;
+                    SwapPieces(emptyLocationLocal, targetIndex);
+                }
+            }     
         }
         //Debug.Log("Every day I am shoffling");
         isShuffling = false;
@@ -249,10 +251,13 @@ public class GameManager : MonoBehaviour
     //exception out of index range
     private void SwapPieces(int fromIndex, int toIndex)
     {
-        // Provede výmìnu dílkù v seznamu dílkù a aktualizaci jejich pozice.
-        (pieces[fromIndex], pieces[toIndex]) = (pieces[toIndex], pieces[fromIndex]);
-        (pieces[fromIndex].localPosition, pieces[toIndex].localPosition) = (pieces[toIndex].localPosition, pieces[fromIndex].localPosition);
-        emptyLocationLocal = toIndex;
+        if (fromIndex >= 0 && fromIndex < pieces.Count && toIndex >= 0 && toIndex < pieces.Count)
+        {
+            // Provede výmìnu dílkù v seznamu dílkù a aktualizaci jejich pozice.
+            (pieces[fromIndex], pieces[toIndex]) = (pieces[toIndex], pieces[fromIndex]);
+            (pieces[fromIndex].localPosition, pieces[toIndex].localPosition) = (pieces[toIndex].localPosition, pieces[fromIndex].localPosition);
+            emptyLocationLocal = toIndex;
+        }            
     }
 
     /* int,int indexToCoords(int tileIndex)
