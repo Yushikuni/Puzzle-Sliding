@@ -86,22 +86,22 @@ public class GameManager : MonoBehaviour
 
             CreateGamePieces(0.01f);
 
-            //SwapPieces(24, 23);
-            Shuffle();
+            //StartCoroutine(WaitForShuffle(0.5f));
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        if(!isShuffling && CheckingGameComlition())
+        StartCoroutine(WaitForShuffle(1f));
+        /*
+        if (!isShuffling && CheckingGameComlition())
         {
             isShuffling = true;
             StartCoroutine(WaitForShuffle(0.5f));
             //Debug.Log("Stop shuffle");
             
-        }
+        }*/
         if (Input.GetMouseButtonDown(0)) // 0 mark left mouse button
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
@@ -170,19 +170,7 @@ public class GameManager : MonoBehaviour
         bool destionationIsEmpty = (destination == emptyLocationLocal); 
         return
         (collCheck && originBottomBounds && detinationBottomBounds && originOutOfBounds && destinationOutOfBounds && destionationIsEmpty);
-            
-            
-        /*// celkom 6 podminek
-        //pozice 23 a offset je 5
-        bool isNotOffset = i + offset < (sizeGame * sizeGame); // jsi v poli //OK
-        bool anotherBool = i >= 0;
-        bool isOffset = i < (sizeGame * sizeGame); //jsi v poli
-        bool nani = (i + offset >= 0); //OK
-        bool co1 = (i + offset == emptyLocationLocal); //OK 
-        bool co2 = (i % sizeGame != checkCollum); //pravy a levy sloupec
-        
-        bool result = co1 && co2 && isNotOffset && nani && isOffset && anotherBool;
-        return result;*/
+           
     }
 
     
@@ -201,54 +189,43 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator WaitForShuffle(float waitingTime)
     {
-        yield return new WaitForSeconds(waitingTime);
         Shuffle();
-        isShuffling = false;
+
+        yield return new WaitForSeconds(waitingTime);  
     }
     //TODO: Do some Shuffling with cards do not use BRUTAL!
     private void Shuffle()
     {
-        isShuffling = true;
 
-        int shuffleCount = 5; // Counter for shuffel method
-
-        for (int i = 0; i < shuffleCount; i++)
+        for (int i = 0; i < pieces.Count - 1; i++)
         {
-            // Zde provedete náhodný platný tah, napøíklad jako v pøedchozím kódu
             int randomMove = Random.Range(0, 4);
             //Debug.Log("Random mode range: " + randomMove);
-            
-            int targetIndex = -1;
-            if (targetIndex != -1)
-            {
-                SwapPieces(emptyLocationLocal, targetIndex);
 
-                if (randomMove == 0 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - sizeGame, sizeGame))
-                {
-                    targetIndex = emptyLocationLocal - sizeGame;
-                    SwapPieces(emptyLocationLocal, targetIndex);
-                }
-                else if (randomMove == 1 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + sizeGame, sizeGame))
-                {
-                    targetIndex = emptyLocationLocal + sizeGame;
-                    SwapPieces(emptyLocationLocal, targetIndex);
-                }
-                else if (randomMove == 2 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - 1, 0))
-                {
-                    targetIndex = emptyLocationLocal - 1;
-                    SwapPieces(emptyLocationLocal, targetIndex);
-                }
-                else if (randomMove == 3 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + 1, sizeGame - 1))
-                {
-                    targetIndex = emptyLocationLocal + 1;
-                    SwapPieces(emptyLocationLocal, targetIndex);
-                }
-            }     
+            int targetIndex;
+            if (randomMove == 0 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - sizeGame, sizeGame))
+            {
+                targetIndex = emptyLocationLocal - sizeGame;
+                SwapPieces(emptyLocationLocal, targetIndex);
+            }
+            else if (randomMove == 1 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + sizeGame, sizeGame))
+            {
+                targetIndex = emptyLocationLocal + sizeGame;
+                SwapPieces(emptyLocationLocal, targetIndex);
+            }
+            else if (randomMove == 2 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - 1, 0))
+            {
+                targetIndex = emptyLocationLocal - 1;
+                SwapPieces(emptyLocationLocal, targetIndex);
+            }
+            else if (randomMove == 3 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + 1, sizeGame - 1))
+            {
+                targetIndex = emptyLocationLocal + 1;
+                SwapPieces(emptyLocationLocal, targetIndex);
+            }
         }
-        //Debug.Log("Every day I am shoffling");
-        isShuffling = false;
     }
-    //exception out of index range
+
     private void SwapPieces(int fromIndex, int toIndex)
     {
         if (fromIndex >= 0 && fromIndex < pieces.Count && toIndex >= 0 && toIndex < pieces.Count)
@@ -269,25 +246,4 @@ public class GameManager : MonoBehaviour
          return X,Y;
      }*/
 
-    /*
-            if (randomMove == 0 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - sizeGame, sizeGame))
-            {
-                //SwapPieces(emptyLocationLocal, emptyLocationLocal - sizeGame);
-                SwapPieces(emptyLocationLocal - sizeGame, emptyLocationLocal);
-            }
-            else if (randomMove == 1 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + sizeGame, sizeGame))
-            {
-                //SwapPieces(emptyLocationLocal, emptyLocationLocal + sizeGame);
-                SwapPieces(emptyLocationLocal + sizeGame, emptyLocationLocal);
-            }
-            else if (randomMove == 2 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - 1, 0))
-            {
-                //SwapPieces(emptyLocationLocal, emptyLocationLocal - 1);
-                SwapPieces(emptyLocationLocal - 1 ,emptyLocationLocal);
-            }
-            else if (randomMove == 3 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + 1, sizeGame - 1))
-            {
-                //SwapPieces(emptyLocationLocal, emptyLocationLocal + 1);
-                SwapPieces(emptyLocationLocal + 1, emptyLocationLocal);
-            }*/
 }
