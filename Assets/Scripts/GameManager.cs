@@ -189,7 +189,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator WaitForShuffle(float waitingTime)
     {
-        Shuffle();
+         Shuffle();
 
         yield return new WaitForSeconds(waitingTime);  
     }
@@ -201,8 +201,12 @@ public class GameManager : MonoBehaviour
         {
             int randomMove = Random.Range(0, 4);
             //Debug.Log("Random mode range: " + randomMove);
-
+            
+            
+            
+            //All Conditions are false!!!!! Need to redo it!!!
             int targetIndex;
+            /*
             if (randomMove == 0 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - sizeGame, sizeGame))
             {
                 targetIndex = emptyLocationLocal - sizeGame;
@@ -222,7 +226,7 @@ public class GameManager : MonoBehaviour
             {
                 targetIndex = emptyLocationLocal + 1;
                 SwapPieces(emptyLocationLocal, targetIndex);
-            }
+            }*/
         }
     }
 
