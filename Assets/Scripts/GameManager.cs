@@ -205,28 +205,41 @@ public class GameManager : MonoBehaviour
             
             
             //All Conditions are false!!!!! Need to redo it!!!
-            int targetIndex;
-            /*
-            if (randomMove == 0 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - sizeGame, sizeGame))
+            //int targetIndex;
+            
+            if (randomMove == 0)
             {
-                targetIndex = emptyLocationLocal - sizeGame;
-                SwapPieces(emptyLocationLocal, targetIndex);
+                //targetIndex = emptyLocationLocal - sizeGame;
+                if (SwapIsValid(emptyLocationLocal, emptyLocationLocal - sizeGame, sizeGame))
+                {
+                    SwapPieces(emptyLocationLocal, emptyLocationLocal - sizeGame);
+                }
             }
-            else if (randomMove == 1 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + sizeGame, sizeGame))
+            else if (randomMove == 1)
             {
-                targetIndex = emptyLocationLocal + sizeGame;
-                SwapPieces(emptyLocationLocal, targetIndex);
+                //targetIndex = emptyLocationLocal + sizeGame;
+                if (SwapIsValid(emptyLocationLocal, emptyLocationLocal + sizeGame, sizeGame))
+                {
+                    SwapPieces(emptyLocationLocal, emptyLocationLocal + sizeGame);
+                }
             }
-            else if (randomMove == 2 && SwapIsValid(emptyLocationLocal, emptyLocationLocal - 1, 0))
+            else if (randomMove == 2)
             {
-                targetIndex = emptyLocationLocal - 1;
-                SwapPieces(emptyLocationLocal, targetIndex);
+                //targetIndex = emptyLocationLocal - 1;
+                if (SwapIsValid(emptyLocationLocal, emptyLocationLocal - 1, 0))
+                {
+                    SwapPieces(emptyLocationLocal, emptyLocationLocal - 1);
+                }
             }
-            else if (randomMove == 3 && SwapIsValid(emptyLocationLocal, emptyLocationLocal + 1, sizeGame - 1))
+            else if (randomMove == 3)
             {
-                targetIndex = emptyLocationLocal + 1;
-                SwapPieces(emptyLocationLocal, targetIndex);
-            }*/
+                //targetIndex = emptyLocationLocal + 1;
+                if (SwapIsValid(emptyLocationLocal, emptyLocationLocal + 1, sizeGame - 1))
+                {
+                    SwapPieces(emptyLocationLocal, emptyLocationLocal + 1);
+                }
+                
+            }
         }
     }
 
