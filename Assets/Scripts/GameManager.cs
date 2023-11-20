@@ -86,14 +86,14 @@ public class GameManager : MonoBehaviour
 
             CreateGamePieces(0.01f);
 
-            //StartCoroutine(WaitForShuffle(0.5f));
+            StartCoroutine(WaitForShuffle(0.5f));
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine(WaitForShuffle(1f));
+        //StartCoroutine(WaitForShuffle(1f));
         /*
         if (!isShuffling && CheckingGameComlition())
         {
@@ -210,34 +210,38 @@ public class GameManager : MonoBehaviour
             if (randomMove == 0)
             {
                 //targetIndex = emptyLocationLocal - sizeGame;
-                if (SwapIsValid(emptyLocationLocal, emptyLocationLocal - sizeGame, sizeGame))
+                Debug.Log("Random mode range: " + randomMove + "Swap is valid: " + SwapIsValid(emptyLocationLocal, emptyLocationLocal - sizeGame, sizeGame));
+                /*if (SwapIsValid(emptyLocationLocal, emptyLocationLocal - sizeGame, sizeGame))
                 {
                     SwapPieces(emptyLocationLocal, emptyLocationLocal - sizeGame);
-                }
+                }*/
             }
             else if (randomMove == 1)
             {
                 //targetIndex = emptyLocationLocal + sizeGame;
-                if (SwapIsValid(emptyLocationLocal, emptyLocationLocal + sizeGame, sizeGame))
+                Debug.Log("Random mode range: " + randomMove + "Swap is valid: " + SwapIsValid(emptyLocationLocal, emptyLocationLocal + sizeGame, sizeGame));
+                /*if (SwapIsValid(emptyLocationLocal, emptyLocationLocal + sizeGame, sizeGame))
                 {
                     SwapPieces(emptyLocationLocal, emptyLocationLocal + sizeGame);
-                }
+                }*/
             }
             else if (randomMove == 2)
             {
                 //targetIndex = emptyLocationLocal - 1;
-                if (SwapIsValid(emptyLocationLocal, emptyLocationLocal - 1, 0))
+                Debug.Log("Random mode range: " + randomMove + "Swap is valid: " + SwapIsValid(emptyLocationLocal, emptyLocationLocal - 1, 0));
+                /*if (SwapIsValid(emptyLocationLocal, emptyLocationLocal - 1, 0))
                 {
                     SwapPieces(emptyLocationLocal, emptyLocationLocal - 1);
-                }
+                }*/
             }
             else if (randomMove == 3)
             {
                 //targetIndex = emptyLocationLocal + 1;
-                if (SwapIsValid(emptyLocationLocal, emptyLocationLocal + 1, sizeGame - 1))
+                Debug.Log("Random mode range: " + randomMove + "Swap is valid: " + SwapIsValid(emptyLocationLocal, emptyLocationLocal + 1, sizeGame - 1));
+                /*if (SwapIsValid(emptyLocationLocal, emptyLocationLocal + 1, sizeGame - 1))
                 {
                     SwapPieces(emptyLocationLocal, emptyLocationLocal + 1);
-                }
+                }*/
                 
             }
         }
