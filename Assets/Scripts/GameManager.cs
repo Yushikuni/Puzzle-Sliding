@@ -58,7 +58,7 @@ public class GameManager : MonoBehaviour
                 piece.name = $"{(row * sizeGame) + col}";
                 if((row == sizeGame - 1) && (col == sizeGame - 1))
                 {
-                    //emptyLocationLocal = (sizeGame * sizeGame) - 1;
+                    emptyLocationLocal = (sizeGame * sizeGame) - 1;
                     piece.gameObject.SetActive(false); 
                 }
                 else
@@ -242,7 +242,6 @@ public class GameManager : MonoBehaviour
                 {
                     SwapPieces(emptyLocationLocal, emptyLocationLocal + 1);
                 }*/
-                
             }
         }
     }
