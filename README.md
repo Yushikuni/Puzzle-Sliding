@@ -5,9 +5,12 @@
 
  Update for:
 
+ 24. 11 2023
+I am waiting until my friend programmer looks into this messy code :D
+
 14. 11 2023
 
-I still don't know how to use a coroutine :| I know it is async function using enum but I have no idea how to implement via puzzle :(
+I still don't know how to use a coroutine :| I know it is an async function using an enum but I have no idea how to implement it via puzzle :(
 
  
  09. 11 2023 
